@@ -1,0 +1,15 @@
+node_modules
+
+# Eclipse Core
+.project
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
