@@ -6,7 +6,7 @@
 # Clone this repository
 git clone https://github.com/MrSam/burble
 # Go into the repository
-cd burble 
+cd burble/ 
 # Install dependencies
 npm install
 # Run the app
