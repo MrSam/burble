@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Burble 2000</title>
     <style>
+  
+    * { padding:0; margin:0;font-family: 'Inconsolata', monospace;}
+    
     .noselect {
 	  -webkit-touch-callout: none; /* iOS Safari */
 	  -webkit-user-select: none; /* Safari */
@@ -12,36 +15,37 @@
 	  -ms-user-select: none; /* Internet Explorer/Edge */
 	  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 	}
- 	.messagelist { border:1px solid green;height:500px;margin-left:124px;overflow-x:scroll;}
+ 	.messagelist { height:100%;overflow-x:scroll;padding-left:5px;padding-top:1px}
  	
   	button, submit { border:none; } 
- 	
 </style>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-		<div id="maindiv" class="noselect" style="height:500px;display:block;">
-			<div id="chanlist" style="width:120px;border:1px solid red;height:500px;float:left">
-				<ul>
-					<li><a href="#" data-window="console" class="chanlink">Console</a></li>
-				</ul>
-				<ul>
-					<li><a href="#" data-window="chan1" class="chanlink">#Chan1</a></li>
-				</ul>
-				<ul>
-					<li><a href="#" data-window="chan2" class="chanlink">#Chan2</a></li>
-				</ul>
-			</div>
+        <div id="topnavbar" class="navigation-bar navigation-bar--material" style="-webkit-app-region: drag">
+		  <div class="navigation-bar__center navigation-bar--material__center">
+		    Title
+		  </div>
+		</div>
+		<div id="mainChatDiv" class="noselect" style="height:750px;display:block;">
 			<div id="messagelist_console" class="messagelist">
 					<div>Main Window</a></div>
 			</div>
-			<div id="messagelist_chan1" class="messagelist" style="display:none">
-					<div>Window Channel1</div>
-			</div>
-			<div id="messagelist_chan2" class="messagelist" style="display:none">
-					<div>Window Channel2</div>
-			</div>
 		</div>
 		<div style="clear:both;"></div>
+		<div id="tabnavbar" class="tab-bar tab-bar--top tab-bar--material">
+
+		  <label class="tab-bar__item tab-bar--material__item">
+		    <input type="radio" name="tab-bar-material-a" class="channelbutton" checked="checked" data-window="console">
+		    <button class="tab-bar__button tab-bar--material__button">
+		      Status
+		    </button>
+		  </label>
+
+		
+		
+		</div>
 		<input type="text" id="chatline" style="width:90%;height:40px;" />
 		<button style="height:40px;width:80px;">Send</button>
   </body>
