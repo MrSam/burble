@@ -1,33 +1,43 @@
 // http://paletton.com/#uid=33S110kllllD0n3s0mceFku80jC
-var net = require('net');
 var $ = require('jQuery');
+var WebSocketClient = require('websocket').client;
 
 setupWindow();
 
-var client = new net.Socket();
-client.connect(6667, 'irc.krey.net', function() {
-	$("#messagelist_console").text("Connected");
+var client = new WebSocketClient();
 
-	client.write('NICK Melk\r\n');
-	client.write('USER melk 8 * :Make IRC Great Again \r\n');
+client.on('connectFailed', function(error) {
+    console.log('Connect Error: ' + error.toString());
 });
 
-client.on('data', function(buffer) {
-
-	// data is a chunk of data; now split it 
-	var data = buffer.toString().split("\r\n");
-
-	console.log(data);
-
-	$.each(data, function(index, value) {
-		appendTextLine("#messagelist_console", value);
-	}); 
+client.on('connect', function(connection) {
+    console.log('WebSocket Client Connected');
+    connection.on('error', function(error) {
+        console.log("Connection Error: " + error.toString());
+    });
+    connection.on('close', function() {
+        console.log('echo-protocol Connection Closed');
+    });
+    connection.on('message', function(message) {
+        if (message.type === 'utf8') {
+            console.log("Received: '" + message.utf8Data + "'");
+        }
+    });
+    
+    function sendNumber() {
+        if (connection.connected) {
+            var number = Math.round(Math.random() * 0xFFFFFF);
+            connection.sendUTF(number.toString());
+            setTimeout(sendNumber, 1000);
+        }
+    }
+    sendNumber();
 });
+ 
+client.connect('ws://localhost:8887/');
 
-client.on('close', function() {
-	$("#messagelist_console").text("Connection closed");
-	console.log('Connection closed');
-});
+
+
 
 $( window ).resize(function() {
 	doResize();
@@ -36,8 +46,8 @@ $( window ).resize(function() {
 // FUNCTIONS
 function setupWindow() {
 	doResize();
-	newWindow("vpn-ix");
-	newWindow("irchelp");
+//	newWindow("vpn-ix");
+//	newWindow("irchelp");
 }
 
 var channels = {};
